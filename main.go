@@ -83,6 +83,9 @@ func main() {
 	log.Printf("Configured Interval: %s\n", interval)
 	log.Printf("Configured Endpoints: %v\n", endpoints)
 
+	// handle health endpoint
+	go handleHealth()
+
 	// --- Main application loop ---
 	for {
 		log.Println("--- Starting new round of API calls ---")
@@ -105,4 +108,11 @@ func main() {
 		// Wait for the configured interval before the next round of calls.
 		time.Sleep(interval)
 	}
+}
+
+func handleHealth() {
+	http.ListenAndServe(":8080",
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("Healthy"))
+		}))
 }
