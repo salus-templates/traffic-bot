@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"log"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"strconv"
@@ -106,7 +107,11 @@ func main() {
 		log.Println("--- All API calls for this round completed ---")
 
 		// Wait for the configured interval before the next round of calls.
-		time.Sleep(interval)
+		currentInterval := time.Duration(rand.Int64N(int64(interval)))
+
+		log.Printf("--- Waiting for a randomized interval of %v ---\n", currentInterval)
+
+		time.Sleep(currentInterval)
 	}
 }
 
