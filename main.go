@@ -50,9 +50,11 @@ func main() {
 	// --- Configuration via Environment Variables ---
 
 	// Get the interval from environment variable. Default to 5 seconds if not set or invalid.
+	koya := os.Getenv("KOYAPOINTS")
 	intervalSecondsStr := os.Getenv("INTERVAL_SECONDS")
 	intervalSeconds, err := strconv.Atoi(intervalSecondsStr)
 	if err != nil || intervalSeconds <= 0 {
+		log.Println(" KOYAPOINTS ")
 		log.Printf("Invalid or missing INTERVAL_SECONDS environment variable. Defaulting to %d seconds. Error: %v\n", defaultIntervalSeconds, err)
 		intervalSeconds = defaultIntervalSeconds
 	}
